@@ -2,6 +2,59 @@
 	margin-top: 1rem;
 }
 
-.letter {
+.letter-cell {
+	padding-left: 0.25rem;
+	padding-right: 0.25rem;
+	padding-top: 1rem;
+}
+
+.letter-tile, .no-letter {
+	margin: 0px;
+	padding: 0.5rem;
 	width: 1.35em;
+}
+
+.letter-tile {
+	background-color: white;
+	transform: rotateY(180deg);
+}
+
+.revealed, .revealed * {
+	animation-duration: 1s;
+	animation-timing-function: linear;
+}
+
+.revealed {
+	transform: rotateY(0deg);
+	animation-name: flip;
+}
+
+@keyframes flip {
+	0% {
+		transform: rotateY(180deg);
+	}
+	100% {
+		transform: rotateY(0deg);
+	}
+}
+
+.letter-text {
+	opacity: 0;
+}
+
+.revealed .letter-text {
+	animation-name: show;
+	opacity: 1;
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	51% {
+		opacity: 1;
+	}
 }

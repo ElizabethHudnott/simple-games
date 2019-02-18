@@ -21,14 +21,18 @@ function enterWord(event) {
 			while (i < wordToGuess.length) {
 				if (wordToGuess[i] === ' ') {
 					newLetter = $(`
-						<td class="px-1 pt-3">
-							<div class="h1 shadow m-0 p-2 letter">&nbsp;</div>
+						<td class="letter-cell">
+							<div class="h1 no-letter">&nbsp;</div>
 						</td>
 					`);
 				} else {
 					newLetter = $(`
-						<td class="px-1 pt-3">
-							<div class="h1 shadow m-0 p-2 bg-white letter">&nbsp;</div>
+						<td class="letter-cell">
+							<div class="h1 shadow letter-tile">
+								<div class="letter-text">
+									${wordToGuess[i]}
+								</div>
+							</div>
 						</td>
 					`);
 				}
@@ -60,10 +64,10 @@ function guessLetter(event) {
 	var wordLetterDiv;
 	var i = 0;
 	while (i < wordLength) {
-		wordLetterDiv = wordLetters.children().eq(i).children().eq(0);
+		wordLetterDiv = wordLetters.children().eq(i).find('.letter-tile');
 		if (guessedLetter === wordToGuess[i]) {
 			containsLetter = true;
-			wordLetterDiv.html(guessedLetter);
+			wordLetterDiv.addClass('revealed');
 		} else if (wordLetterDiv.html() === '&nbsp;') {
 			guessedAllLetters = false;
 		}
