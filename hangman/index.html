@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Hangman</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="hangman.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+		<script src="hangman.js" defer></script>
+  	</head>
+	<body class="px-1">
+		<div class="container">
+			<div class="row">
+				<div class="jumbotron col-12">
+					<h1 class="display-3">Hangman</h1>
+					<p class="lead">
+						The classic word guessing game.
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="card col-2 bg-info text-white">
+					<div class="card-body">
+						<h3 class="card-title">Player 1</h3>
+						<h5 class="card-subtitle">
+							Score: <span id="player1-score">0</span>
+						</h5>
+					</div>
+				</div>
+				<div class="col-8"></div>
+				<div class="card col-2 bg-info text-white">
+					<div class="card-body">
+						<h3 class="card-title">Player 2</h3>
+						<h5 class="card-subtitle">
+							Score: <span id="player1-score">0</span>
+						</h5>
+					</div>
+				</div>
+			</div>
+
+			<div class="row bg-dark px-1 text-center">
+				<table>
+					<tr id="word">
+					</tr>
+				</table>
+			</div>
+
+			<div class="row form-group">
+				<div class="input-group">
+					<input id="word-entry-box" type="text" placeholder="Enter a word" class="form-control">
+					<button id="word-entry-btn" type="button" class="btn btn-primary">Play</button>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">A</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">B</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">C</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">D</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">E</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">F</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">G</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">H</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">I</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">J</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">K</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">L</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">M</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">N</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">O</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">P</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">Q</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">R</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">S</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">T</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">U</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">V</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">W</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">X</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">Y</button>
+				</div>
+				<div class="col-2 col-md p-1">
+					<button type="button" class="btn btn-secondary btn-lg letter-btn w-100">Z</button>
+				</div>
+				<div class="col-8 col-md-10"></div>
+			</div>
+		</div>
+	</body>
+</html>
