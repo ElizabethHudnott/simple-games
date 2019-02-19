@@ -24,6 +24,23 @@ function requestWord() {
 
 requestWord();
 
+function win() {
+	alert(`<strong>Player ${playerToPlay}</strong> narrowly escapes the gallows on this occassion.`, 'success');
+	if (playerToPlay === 1) {
+		player1Score = player1Score + 1;
+		player1ScoreBox.html(player1Score);
+	} else {
+		player2Score = player2Score + 1;
+		player2ScoreBox.html(player2Score);
+	}
+}
+
+function incorrectGuess() {
+	if (numWrongGuesses === maxWrongGuesses) {
+		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
+	}
+}
+
 function countSpaces() {
 	numLettersUncovered = 0;
 	var spacePosition = wordToGuess.indexOf(' ');
@@ -76,7 +93,15 @@ function enterWord(event) {
 			}
 			alert(`<strong>Player ${playerToPlay}:</strong> Guess a letter or solve the puzzle.`, 'success');
 		} else {
-
+			if (wordEntered.toUpperCase() === wordToGuess) {
+				win();
+			} else {
+				numWrongGuesses = numWrongGuesses + 1;
+				if (numWrongGuesses <= maxWrongGuesses) {
+					alert(`No, the word is not <strong>${wordEntered}</strong>. Be careful or you might get hanged!`, 'warning');
+				}
+				incorrectGuess();
+			}
 		}
 	}
 }
@@ -88,17 +113,6 @@ wordEntryBox.on('keydown', function (event) {
 		enterWord(event);
 	}
 });
-
-function win() {
-	alert(`<strong>Player ${playerToPlay}</strong> narrowly escapes the gallows on this occassion.`, 'success');
-	if (playerToPlay === 1) {
-		player1Score = player1Score + 1;
-		player1ScoreBox.html(player1Score);
-	} else {
-		player2Score = player2Score + 1;
-		player2ScoreBox.html(player2Score);
-	}
-}
 
 function enterLetter(event) {
 	var guessedLetter = $(event.target).html();
@@ -130,12 +144,10 @@ function enterLetter(event) {
 
 	} else {
 		numWrongGuesses = numWrongGuesses + 1;
-
-		if (numWrongGuesses === maxWrongGuesses) {
-
-		} else {
-			alert(`There is no ${guessedLetter}. Be careful. You might get hanged!`, 'warning');
+		if (numWrongGuesses <= maxWrongGuesses) {
+			alert(`There is no ${guessedLetter}. Be careful or you might get hanged!`, 'warning');
 		}
+		incorrectGuess();
 	}
 
 	if (numLettersUncovered === wordLength) {

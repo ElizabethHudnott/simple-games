@@ -1,0 +1,44 @@
+All numbers are unsigned and little endian.
+
+Flags (1 byte: swap x&y, compressed)
+Tile width (1 byte, 0..255)
+Tile height (1 byte, 0.255)
+Map width (2 bytes, 1..65536)
+Maximum number of high resolution tiles per row (2 bytes, 0..65535)
+
+If the swap x&y flag is NOT set:
+	Tile numbers for the 1st row, in left to right order (1 byte each)
+	High resolution tile space for the the 1st row
+	Tile numbers for the 2nd row, in left to right order (1 byte each)
+	High resolution tile space for the the 2nd row
+	...
+
+If the swap x&y flag IS set:
+	Tile numbers for the 1st column, in top to bottom order (1 byte each)
+	High resolution tile space for the the 1st column
+	Tile numbers for the 2nd column, in top to bottom order (1 byte each)
+	High resolution tile space for the the 2nd column
+	...
+
+Tile numbers are recorded using one byte each:
+	0..254	Use the tile associated with that number.
+	255		Glue four different tiles together (each 1/4 of the regular tile size) using information from the high resolution tile space.
+
+The high resolution tile space is a list of entries in following format. The list is in ascending order by column or row number.
+	The column number of the high resolution tile (or row number if the swap x&y flag is set, 2 bytes, 1..65535)
+		OR 65536 if the previous entry was the last entry in list.
+	Tile number for the top-left quarter of the tile (1 byte, 0..255)
+	Tile number for the top-right quarter of the tile (1 byte, 0..255)
+	Tile number for the bottom-left quarter of the tile (1 byte, 0..255)
+	Tile number for the bottom-right quarter of the tile (1 byte, 0..255)
+(6 bytes per entry in total)
+
+The high resolution tile space must always be 6 * the maximum number of high resolution tiles per row, although once a column number of 65536 appears then the rest of the bytes are ignored.
+
+Specifications:
+	* Up to 65536 tiles per row.
+	* Up to 256 different tile images.
+
+Limitations:
+	* Tile number 255 can only be used as part of a high resolution tile.
+	* Column 65536 cannot contain high resolution tiles.
