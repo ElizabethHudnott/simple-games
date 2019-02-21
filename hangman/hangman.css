@@ -2,6 +2,10 @@
 	margin-top: 1rem;
 }
 
+.button-grid button {
+	min-width: 53px;
+}
+
 .letter-cell {
 	padding-left: 0.25rem;
 	padding-right: 0.25rem;
