@@ -1,3 +1,9 @@
+'use strict';
+
+const GameKit = window.GameKit;
+GameKit.SFX.load('correct', 'sfx/ding.wav');
+GameKit.SFX.load('incorrect', 'sfx/family-fortunes-wrong-buzzer.mp3')
+
 const maxWrongGuesses = 10;
 
 var player1ScoreBox = $('#player1-score');
@@ -134,6 +140,7 @@ function enterLetter(event) {
 			if (wordLetterDiv.hasClass('revealed')) {
 				break;
 			}
+			GameKit.SFX.play('correct');
 			wordLetterDiv.addClass('revealed');
 			numLettersUncovered = numLettersUncovered + 1;
 		}

@@ -42,3 +42,11 @@ Specifications:
 Limitations:
 	* Tile number 255 can only be used as part of a high resolution tile.
 	* Column 65536 cannot contain high resolution tiles.
+
+Features to add:
+	* "Allow tile graphics to be flipped vertically, horizontally or anti-diagonally (to support rotation in 90-degree increments)." (the diagonal flip is performed first, https://doc.mapeditor.org/en/stable/reference/tmx-map-format/#tile-flipping).  This will require allocating 16 bits to the tile number + transform.
+	* Objects (bigger images)
+	* Some tiles on top of other tiles but behind the player (e.g. objects to pick up)
+	* Some tiles in front of the player
+	* The previous three things are sparse (not stored for every position)
+	* Gluing multiple map files together, loading 1, 2 or 4 into memory at any one time.
