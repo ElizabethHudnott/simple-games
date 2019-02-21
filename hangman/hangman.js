@@ -23,11 +23,16 @@ function alert(message, style) {
 }
 
 function requestWord() {
-	wordToGuess = undefined;
 	alert(`<strong>Player ${playerToPlay}:</strong> Enter a word.`, 'success');
 }
 
 requestWord();
+
+function waitForWord() {
+	wordToGuess = undefined;
+	wordEntryButton.html('Play');
+	wordEntryBox.val('');
+}
 
 function win() {
 	alert(`<strong>Player ${playerToPlay}</strong> narrowly escapes the gallows on this occassion.`, 'success');
@@ -38,12 +43,16 @@ function win() {
 		player2Score = player2Score + 1;
 		player2ScoreBox.html(player2Score);
 	}
+	waitForWord();
+	setTimeout(requestWord, 5000);
 }
 
 function incorrectGuess() {
 	GameKit.SFX.play('incorrect');
 	if (numWrongGuesses === maxWrongGuesses) {
 		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
+		waitForWord();
+		setTimeout(requestWord, 5000);
 	}
 }
 
