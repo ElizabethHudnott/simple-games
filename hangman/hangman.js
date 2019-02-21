@@ -1,8 +1,7 @@
 'use strict';
-
 const GameKit = window.GameKit;
 GameKit.SFX.load('correct', 'sfx/ding.wav');
-GameKit.SFX.load('incorrect', 'sfx/family-fortunes-wrong-buzzer.mp3')
+GameKit.SFX.load('incorrect', 'sfx/family-fortunes-wrong-buzzer.mp3');
 
 const maxWrongGuesses = 10;
 
@@ -42,6 +41,7 @@ function win() {
 }
 
 function incorrectGuess() {
+	GameKit.SFX.play('incorrect');
 	if (numWrongGuesses === maxWrongGuesses) {
 		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
 	}
