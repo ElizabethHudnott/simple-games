@@ -84,19 +84,19 @@ function enterWord(event) {
 			while (letterPosition < wordLength) {
 				if (wordToGuess[letterPosition] === ' ') {
 					newLetterCell = $(`
-						<td class="letter-cell">
+						<div class="letter-cell">
 							<div class="h1 no-letter">&nbsp;</div>
-						</td>
+						</div>
 					`);
 				} else {
 					newLetterCell = $(`
-						<td class="letter-cell">
+						<div class="letter-cell">
 							<div class="h1 shadow letter-tile">
 								<div class="letter-text">
 									${wordToGuess[letterPosition]}
 								</div>
 							</div>
-						</td>
+						</div>
 					`);
 				}
 				wordLetters.append(newLetterCell);
@@ -112,6 +112,7 @@ function enterWord(event) {
 			if (wordEntered.toUpperCase() === wordToGuess) {
 				win();
 			} else {
+				wordEntryBox.val('');
 				numWrongGuesses = numWrongGuesses + 1;
 				if (numWrongGuesses <= maxWrongGuesses) {
 					alert(`No, the word is not <strong>${wordEntered}</strong>. Be careful or you might get hanged!`, 'warning');
@@ -131,14 +132,17 @@ wordEntryBox.on('keydown', function (event) {
 });
 
 function enterLetter(event) {
-	var guessedLetter = $(event.target).html();
+	var buttonClicked = $(event.target);
+	var guessedLetter = buttonClicked.html();
 
 	if (wordToGuess === undefined) {
+		wordEntryButton.focus();
 		var partialWord = wordEntryBox.val() + guessedLetter.toLowerCase();
 		wordEntryBox.val(partialWord);
 		return;
 	}
 
+	buttonClicked.blur();
 	var wordLetterDiv;
 	var containsLetter = false;
 	var letterPosition = 0;
