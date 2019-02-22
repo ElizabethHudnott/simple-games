@@ -1,7 +1,8 @@
 .jumbotron {
 	margin-top: 1rem;
 	margin-bottom: 1.3rem;
-	padding: 2.5rem 2rem;
+	padding: 2rem;
+	padding-bottom: 1.5rem;
 }
 
 #game-area {
@@ -13,8 +14,15 @@
 	min-height: 850px;
 }
 
-.bg-red {
-	background-color: #d80000;
+.bg-retro {
+	background: linear-gradient(
+		to bottom,
+		#b80000 0%,
+		#b80000 50%,
+		#d70909 50%,
+		#d70909 100%
+	);
+	background-size: 100% 20px;
 }
 
 #message-box {
