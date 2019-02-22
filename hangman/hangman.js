@@ -1,9 +1,10 @@
 'use strict';
-const GameKit = window.GameKit;
-GameKit.SFX.load('correct', 'sfx/ding.wav');
-GameKit.SFX.load('incorrect', 'sfx/family-fortunes-wrong-buzzer.mp3');
 
 const maxWrongGuesses = 10;
+
+var sounds = Object.create(null);
+sounds.correct = $('#sfx-correct').get(0);
+sounds.incorrect = $('#sfx-incorrect').get(0);
 
 var player1ScoreBox = $('#player1-score');
 var player2ScoreBox = $('#player2-score');
@@ -48,7 +49,7 @@ function win() {
 }
 
 function incorrectGuess() {
-	GameKit.SFX.play('incorrect');
+	sounds.incorrect.play();
 	if (numWrongGuesses === maxWrongGuesses) {
 		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
 		waitForWord();
@@ -149,7 +150,7 @@ function enterLetter(event) {
 			if (wordLetterDiv.hasClass('revealed')) {
 				break;
 			}
-			GameKit.SFX.play('correct');
+			sounds.correct.play();
 			wordLetterDiv.addClass('revealed');
 			numLettersUncovered = numLettersUncovered + 1;
 		}

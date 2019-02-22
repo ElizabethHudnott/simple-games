@@ -16,6 +16,24 @@
 	background-color: #d80000;
 }
 
+#message-box {
+	max-width: 550px;
+}
+
+.bg-translucent {
+	background-color: rgba(52, 58, 64, 0.47);
+}
+
+.central {
+	max-width: 591px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.mb-25 {
+	margin-bottom: 0.7rem;
+}
+
 .button-grid button {
 	min-width: 53px;
 }
