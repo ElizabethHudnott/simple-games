@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="hangman.css">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
 		<script src="hangman.js" defer></script>
   	</head>
 	<body class="px-1">
@@ -17,13 +18,16 @@
 			<div class="row">
 				<div class="jumbotron col-12">
 					<h1 class="display-3">Hangman</h1>
-					<p class="lead">
+					<p class="lead px-1">
 						The classic word guessing game
 					</p>
 					<nav>
 						<ul class="nav">
 							<li class="nav-item">
 								<span class="nav-link active">Home</span>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-toggle="modal" data-target="#about">About</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="https://github.com/ElizabethHudnott/simple-games/tree/master/hangman">Code</a>
@@ -197,6 +201,27 @@
 				</div>
 				<div class="d-none d-md-block col-md-5">
 					<!-- empty columns -->
+				</div>
+			</div>
+		</div>
+
+		<div id="about" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Why Hangman?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>
+
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Got It!</button>
+					</div>
 				</div>
 			</div>
 		</div>

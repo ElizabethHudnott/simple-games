@@ -6,11 +6,17 @@
 }
 
 #game-area {
-	background-color: #447777;
-	background-image: url(img/1.png);
+	background: url(img/1.png), linear-gradient(
+		to bottom,
+		#447777 0%,
+		#447777 50%,
+		#0c8888 50%,
+		#0c8888 100%
+	);
 	background-position: center top;
-	background-repeat: no-repeat;
-	background-size: contain;
+	background-repeat: no-repeat, repeat;
+	background-size: contain, 100% 90px;
+	border-radius: 0.25rem;
 	min-height: 850px;
 }
 
@@ -23,6 +29,7 @@
 		#d70909 100%
 	);
 	background-size: 100% 20px;
+	border-radius: 0.85rem;
 }
 
 #message-box {
@@ -88,6 +95,8 @@
 
 .letter-tile {
 	background-color: white;
+	border-top-left-radius: 0.4rem;
+	border-top-right-radius: 0.4rem;
 	transform: rotateY(180deg);
 }
 
