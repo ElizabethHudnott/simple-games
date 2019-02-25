@@ -1,5 +1,6 @@
 'use strict';
 
+var advancedAnimations = false;
 const maxWrongGuesses = 10;
 
 var sounds = Object.create(null);
@@ -107,6 +108,9 @@ function enterWord(event) {
 			} else {
 				playerToPlay = 1;
 			}
+			if (advancedAnimations === false) {
+				$('.letter-text').hide();
+			}
 			alert(`<strong>Player ${playerToPlay}:</strong> Guess a letter or solve the puzzle.`, 'success');
 		} else {
 			if (wordEntered.toUpperCase() === wordToGuess) {
@@ -149,13 +153,20 @@ function enterLetter(event) {
 
 	while (letterPosition < wordLength) {
 		if (guessedLetter === wordToGuess[letterPosition]) {
-			wordLetterDiv = wordLetters.children().eq(letterPosition).find('.letter-tile');
 			containsLetter = true;
+			wordLetterDiv = wordLetters.children().eq(letterPosition).find('.letter-tile');
+
 			if (wordLetterDiv.hasClass('revealed')) {
 				break;
 			}
+
 			sounds.correct.play();
 			wordLetterDiv.addClass('revealed');
+
+			if (advancedAnimations === false) {
+				wordLetterDiv.children().fadeIn();
+			}
+
 			numLettersUncovered = numLettersUncovered + 1;
 		}
 		letterPosition = letterPosition + 1;

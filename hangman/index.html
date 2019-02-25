@@ -6,8 +6,13 @@
 		<title>Hangman</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="hangman.css">
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" defer></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
+		<!--
+			Remove this comment and run the following line of code if you want to enable more
+			advanced animations. You'll also need to put advancedAnimations = true; in hangman.js
+			<link rel="stylesheet" href="advanced-animations.css">
+		-->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+  		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
 		<script src="hangman.js" defer></script>
   	</head>
 	<body class="px-1">
@@ -42,7 +47,7 @@
 
 			<div class="row">
 				<div class="col-5 col-sm-4 col-lg-3 py-3 pl-2">
-					<div class="card bg-retro text-white w-100">
+					<div class="card retro bg-retro shadow-dark text-white w-100">
 						<div class="card-body">
 							<h3 class="card-title">Player 1</h3>
 							<h5 class="card-subtitle">
@@ -55,7 +60,7 @@
 					<!-- empty space between the two scores. -->
 				</div>
 				<div class="col-5 col-sm-4 col-lg-3 py-3 pr-2">
-					<div class="card bg-retro text-white">
+					<div class="card retro bg-retro shadow-dark text-white">
 						<div class="card-body">
 							<h3 class="card-title">Player 2</h3>
 							<h5 class="card-subtitle">
