@@ -3,6 +3,21 @@
 	src: url(../fonts/commodore-angled-v1.2.ttf);
 }
 
+.btn-primary {
+	background-color: #b80000;
+	border-color: #b80000;
+	font-family: monospace;
+}
+
+.btn-primary:hover {
+	background-color: #cc0000;
+	border-color: #bc0000;
+}
+
+.btn-primary.btn-lg {
+	font-size: 1.5rem;
+}
+
 .jumbotron {
 	margin-top: 1rem;
 	margin-bottom: 1.3rem;
@@ -11,7 +26,7 @@
 }
 
 #game-area {
-	background: url(img/1.png), linear-gradient(
+	background: url(img/intro.png), linear-gradient(
 		to bottom,
 		#447777 0%,
 		#447777 50%,
@@ -22,6 +37,7 @@
 	background-repeat: no-repeat, repeat;
 	background-size: contain, 100% 90px;
 	border-radius: 0.25rem;
+	image-rendering: pixelated;
 	min-height: 850px;
 }
 

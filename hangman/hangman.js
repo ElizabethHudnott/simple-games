@@ -51,6 +51,7 @@ function win() {
 
 function incorrectGuess() {
 	sounds.incorrect.play();
+	console.log(numWrongGuesses);
 	if (numWrongGuesses === maxWrongGuesses) {
 		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
 		waitForWord();
