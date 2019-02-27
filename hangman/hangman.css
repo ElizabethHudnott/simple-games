@@ -50,6 +50,18 @@
 	text-shadow: 4px 2px black;
 }
 
+@media (max-width: 767px) {
+
+	.retro h3 {
+		font-size: 0.98rem;
+	}
+
+	.retro h5 {
+		font-size: 0.8rem;
+	}
+
+}
+
 .bg-retro {
 	background: linear-gradient(
 		to bottom,
@@ -72,7 +84,6 @@
 }
 
 .central {
-	max-width: 591px;
 	margin-left: 10px;
 	margin-right: 10px;
 }
