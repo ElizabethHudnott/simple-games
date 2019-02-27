@@ -63,6 +63,7 @@
 }
 
 #message-box {
+	display: none; /*Begin with no messages displayed. */
 	max-width: 550px;
 }
 
@@ -72,8 +73,8 @@
 
 .central {
 	max-width: 591px;
-	padding-left: 10px;
-	padding-right: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .mb-25 {
@@ -130,10 +131,6 @@
 }
 
 .alert-success {
-	border-width: 0px;
-}
-
-.alert-success {
 	background-color: #00ea00;
 }
 
@@ -141,9 +138,15 @@
 	background-color: #eaea00;
 }
 
+.alert-danger {
+	color: #731c1c;
+	background-color: #fcb583;
+}
+
 .alert {
 	font-family: monospace;
 	font-size: 1.4rem;
+	border-width: 0px;
 
 	/* Set 4 different backgrounds that get combined to simulate a
 	 * multicolored dashed border effect.

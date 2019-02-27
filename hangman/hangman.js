@@ -2,6 +2,7 @@
 
 var advancedAnimations = false;
 const maxWrongGuesses = 10;
+const alertDisplayTime = 3500;
 
 var sounds = Object.create(null);
 sounds.correct = $('#sfx-correct').get(0);
@@ -19,21 +20,40 @@ var player1Score = 0, player2Score = 0;
 var playerToPlay = 1;
 
 function alert(message, style) {
-	messageBox.removeClass('alert-success alert-danger alert-warning');
-	messageBox.addClass('alert-' + style);
-	messageBox.html(message);
+	messageBox.fadeOut(200, function () {
+		messageBox.removeClass('alert-success alert-danger alert-warning');
+		messageBox.addClass('alert-' + style);
+		messageBox.html(message);
+		messageBox.show();
+		messageBox.fadeIn();
+	});
+}
+
+function removeAlert() {
+	messageBox.fadeOut(200, function () {
+		messageBox.hide();
+	});
 }
 
 function requestWord() {
-	alert(`<strong>Player ${playerToPlay}:</strong> Enter a word.`, 'success');
+	if (wordToGuess === undefined) {
+		wordLetters.html('');
+		alert(`<strong>Player ${playerToPlay}:</strong> Enter a word.`, 'success');
+	}
 }
 
 requestWord();
 
-function waitForWord() {
+function enableNewWordEntry() {
 	wordToGuess = undefined;
-	wordEntryButton.html('Play');
+	if (playerToPlay === 1) {
+		wordEntryBox.attr('placeholder', 'Enter a word for Player 2 to guess');
+	} else {
+		wordEntryBox.attr('placeholder', 'Enter a word for Player 1 to guess');
+	}
 	wordEntryBox.val('');
+	wordEntryButton.html('Play');
+	setTimeout(requestWord, alertDisplayTime);
 }
 
 function win() {
@@ -45,17 +65,15 @@ function win() {
 		player2Score = player2Score + 1;
 		player2ScoreBox.html(player2Score);
 	}
-	waitForWord();
-	setTimeout(requestWord, 5000);
+	enableNewWordEntry();
 }
 
 function incorrectGuess() {
 	sounds.incorrect.play();
 	console.log(numWrongGuesses);
 	if (numWrongGuesses === maxWrongGuesses) {
-		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word correctly. May God have mercy on your soul!`, 'danger');
-		waitForWord();
-		setTimeout(requestWord, 5000);
+		alert(`Player ${playerToPlay}: You have been sentenced to death for the crime of failing to guess a word. May God have mercy on your soul!`, 'danger');
+		enableNewWordEntry();
 	}
 }
 
@@ -112,6 +130,7 @@ function enterWord(event) {
 			if (advancedAnimations === false) {
 				$('.letter-text').hide();
 			}
+			wordEntryBox.attr('placeholder', 'Enter a word to solve the puzzle');
 			alert(`<strong>Player ${playerToPlay}:</strong> Guess a letter or solve the puzzle.`, 'success');
 		} else {
 			if (wordEntered.toUpperCase() === wordToGuess) {
@@ -149,43 +168,46 @@ function enterLetter(event) {
 
 	buttonClicked.blur();
 	var wordLetterDiv;
-	var containsLetter = false;
+	var numOccurences = 0;
 	var letterPosition = 0;
 
 	while (letterPosition < wordLength) {
 		if (guessedLetter === wordToGuess[letterPosition]) {
-			containsLetter = true;
+			numOccurences = numOccurences + 1;
 			wordLetterDiv = wordLetters.children().eq(letterPosition).find('.letter-tile');
 
-			if (wordLetterDiv.hasClass('revealed')) {
-				break;
+			if (wordLetterDiv.hasClass('revealed') == false) {
+				sounds.correct.play();
+				wordLetterDiv.addClass('revealed');
+				if (advancedAnimations === false) {
+					wordLetterDiv.children().fadeIn();
+				}
+				numLettersUncovered = numLettersUncovered + 1;
 			}
 
-			sounds.correct.play();
-			wordLetterDiv.addClass('revealed');
-
-			if (advancedAnimations === false) {
-				wordLetterDiv.children().fadeIn();
-			}
-
-			numLettersUncovered = numLettersUncovered + 1;
 		}
 		letterPosition = letterPosition + 1;
 	}
 
-	if (containsLetter) {
-
-	} else {
+	if (numOccurences === 0) {
 		numWrongGuesses = numWrongGuesses + 1;
 		if (numWrongGuesses <= maxWrongGuesses) {
 			alert(`There is no ${guessedLetter}. Be careful or you might get hanged!`, 'warning');
+			setTimeout(removeAlert, alertDisplayTime);
 		}
 		incorrectGuess();
+	} else {
+		if (numLettersUncovered === wordLength) {
+			win();
+		} else if (numOccurences === 1) {
+			alert(`There is one ${guessedLetter}.`, 'success');
+			setTimeout(removeAlert, alertDisplayTime);
+		} else {
+			alert(`There are ${numLettersUncovered} ${guessedLetter}s.`, 'success');
+			setTimeout(removeAlert, alertDisplayTime);
+		}
 	}
 
-	if (numLettersUncovered === wordLength) {
-		win();
-	}
 }
 
 $('.letter-btn').on('click', enterLetter);
