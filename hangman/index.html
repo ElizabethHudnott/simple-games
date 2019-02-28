@@ -5,9 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>Hangman</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="../site.css">
 		<link rel="stylesheet" href="hangman.css">
 		<!--
-			Remove this comment and run the following line of code if you want to enable more
+			Remove this comment to enable the following line of code if you want to enable more
 			advanced animations. You'll also need to put advancedAnimations = true; in hangman.js
 			<link rel="stylesheet" href="advanced-animations.css">
 		-->
@@ -22,10 +23,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="jumbotron col-12">
-					<h1 class="display-3">Hangman</h1>
-					<p class="lead px-1">
-						The classic word guessing game
-					</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div>
+							<h1 class="display-3">Hangman</h1>
+							<p class="lead px-1">
+								The classic word guessing game
+							</p>
+						</div>
+						<div>
+							<img src="img/head.png">
+						</div>
+					</div>
 					<nav>
 						<ul class="nav">
 							<li class="nav-item">
