@@ -1,3 +1,13 @@
+a {
+	color: #f80000;
+}
+
+a:hover {
+	background-color: #b80000;
+	color: white;
+	text-decoration: none;
+}
+
 .jumbotron {
 	margin-top: 1rem;
 	margin-bottom: 1.3rem;
@@ -9,4 +19,9 @@
 	linear-gradient(45deg, #dddddd 25%, transparent 25%, transparent 75%, #dddddd 75%, #dddddd);
 	background-size: 40px 40px;
 	background-position: 0 0, 20px 20px;
+}
+
+.jumbotron .nav {
+	background-color: #e9ecef;
+	width: fit-content;
 }
