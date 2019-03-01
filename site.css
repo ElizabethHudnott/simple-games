@@ -8,6 +8,10 @@ a:hover {
 	text-decoration: none;
 }
 
+p {
+	text-align: justify;
+}
+
 .jumbotron {
 	margin-top: 1rem;
 	margin-bottom: 1.3rem;
