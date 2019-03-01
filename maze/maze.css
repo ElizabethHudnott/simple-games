@@ -1,0 +1,11 @@
+#game-border {
+	background-color: #00003c;
+	border-radius: 0.3rem;
+	padding: 11px 6px;
+	text-align: center;
+}
+
+#canvas {
+	border-radius: 0.3rem;
+	vertical-align: middle;
+}
