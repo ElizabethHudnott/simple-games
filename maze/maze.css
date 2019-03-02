@@ -1,5 +1,5 @@
 #game-border {
-	background-color: #00003c;
+	background-image: url("tiles/wall.png");
 	border-radius: 0.3rem;
 	padding: 11px 6px;
 	text-align: center;
