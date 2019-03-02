@@ -10,7 +10,7 @@
 		<script src="maze.js" defer></script>
 	</head>
 	<body>
-		<div class="container">
+		<div id="container" class="container-fluid">
 			<div class="jumbotron">
 				<h1 class="display-3">Amazing Maze</h1>
 				<p class="lead px-1">
@@ -31,6 +31,10 @@
 			</div>
 			<div id="game-border">
 				<canvas id="canvas" width="1088" height="704"></canvas>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="corridor-toggle" checked>
+				<label class="form-check-label" for="corridor-toggle">Use transparent corridor tiles</label>
 			</div>
 		</div>
 	</body>

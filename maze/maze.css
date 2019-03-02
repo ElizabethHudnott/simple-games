@@ -1,11 +1,18 @@
+#container {
+	max-width: 1140px;
+}
+
 #game-border {
 	background-image: url("tiles/wall.png");
 	border-radius: 0.3rem;
-	padding: 11px 6px;
-	text-align: center;
+	max-height: 100vh;
+	padding: 11px;
 }
 
 #canvas {
+	background-size: 100%;
 	border-radius: 0.3rem;
+	max-height: calc(100vh - 22px);
 	vertical-align: middle;
+	width: 100%;
 }
