@@ -18,8 +18,10 @@ var wordEntryButton = $('#word-entry-btn');
 var wordToGuess, wordLength, numLettersUncovered, numWrongGuesses;
 var player1Score = 0, player2Score = 0;
 var playerToPlay = 1;
+var isOldAlertToRemove = false;
 
 function alert(message, style) {
+	isOldAlertToRemove = false;
 	messageBox.fadeOut(200, function () {
 		messageBox.removeClass('alert-success alert-danger alert-warning');
 		messageBox.addClass('alert-' + style);
@@ -30,9 +32,11 @@ function alert(message, style) {
 }
 
 function removeAlert() {
-	messageBox.fadeOut(200, function () {
-		messageBox.hide();
-	});
+	if (isOldAlertToRemove) {
+		messageBox.fadeOut(200, function () {
+			messageBox.hide();
+		});
+	}
 }
 
 function requestWord() {
@@ -53,7 +57,7 @@ function enableNewWordEntry() {
 	}
 	wordEntryBox.val('');
 	wordEntryButton.html('Play');
-	setTimeout(requestWord, alertDisplayTime);
+	setTimeout(requestWord, 7000);
 }
 
 function win() {
@@ -193,6 +197,7 @@ function enterLetter(event) {
 		numWrongGuesses = numWrongGuesses + 1;
 		if (numWrongGuesses <= maxWrongGuesses) {
 			alert(`There is no ${guessedLetter}. Be careful or you might get hanged!`, 'warning');
+			isOldAlertToRemove = true;
 			setTimeout(removeAlert, alertDisplayTime);
 		}
 		incorrectGuess();
@@ -201,9 +206,11 @@ function enterLetter(event) {
 			win();
 		} else if (numOccurences === 1) {
 			alert(`There is one ${guessedLetter}.`, 'success');
+			isOldAlertToRemove = true;
 			setTimeout(removeAlert, alertDisplayTime);
 		} else {
 			alert(`There are ${numLettersUncovered} ${guessedLetter}s.`, 'success');
+			isOldAlertToRemove = true;
 			setTimeout(removeAlert, alertDisplayTime);
 		}
 	}
