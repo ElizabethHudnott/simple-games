@@ -7,8 +7,9 @@ canvas.style.backgroundImage = 'url("backgrounds/circuit-board.png")';
 
 let tiles = [];
 let map;
+let character, xLocation, yLocation;
 
-var brickCorridor, transparentCorridor;
+let brickCorridor, transparentCorridor;
 
 chooseMap();
 
@@ -18,31 +19,41 @@ chooseMap();
 	function imageResolved() {
 		numTilesLoaded++;
 
-		if (numTilesLoaded === 4) {
+		if (numTilesLoaded === 5) {
 			drawMap();
+			drawCharacter();
 		}
 	}
 
-	let image;
-	image = new Image();
-	image.onload = imageResolved;
-	image.src = 'tiles/corridor-2.png';
-	transparentCorridor = image;
-	tiles[0] = image;
+	function getImage(url) {
+		let image = new Image();
+		image.onload = imageResolved;
+		image.src = url;
+		return image;
+	}
 
-	image = new Image();
-	image.onload = imageResolved;
-	image.src = 'tiles/wall.png';
-	tiles[1] = image;
+	transparentCorridor = getImage('tiles/corridor-2.png');
+	brickCorridor = getImage('tiles/corridor.png');
+	tiles[0] = transparentCorridor;
+	tiles[1] = getImage('tiles/wall.png');
+	tiles[2] = getImage('tiles/exit.png');
+	character = getImage('sprites/lion.png');
+}
 
-	image = new Image();
-	image.onload = imageResolved;
-	image.src = 'tiles/exit.png';
-	tiles[2] = image;
+function drawCharacter() {
+	let xPosition = 32 * xLocation;
+	let yPosition = 32 * yLocation;
+	gContext.drawImage(character, xPosition, yPosition);
+}
 
-	brickCorridor = new Image();
-	brickCorridor.onload = imageResolved;
-	brickCorridor.src = 'tiles/corridor.png';
+function drawTile(x, y) {
+	let row = map[y];
+	let tileNumber = row.charCodeAt(x) - 48;
+	let tile = tiles[tileNumber];
+	let xPosition = 32 * x;
+	let yPosition = 32 * y;
+	gContext.clearRect(xPosition, yPosition, 32, 32);
+	gContext.drawImage(tile, xPosition, yPosition);
 }
 
 function drawMap() {
@@ -60,6 +71,46 @@ function drawMap() {
 	}
 }
 
+function moveCharacter(x, y) {
+	drawTile(xLocation, yLocation);
+	xLocation = x;
+	yLocation = y;
+	drawCharacter();
+}
+
+document.body.addEventListener('keydown', function (event) {
+	let attemptX = xLocation;
+	let attemptY = yLocation;
+	let moveAttempted = true;
+	switch (event.key) {
+	case 'ArrowDown':
+		attemptY++;
+		break;
+	case 'ArrowLeft':
+		attemptX--;
+		break;
+	case 'ArrowRight':
+		attemptX++;
+		break;
+	case 'ArrowUp':
+		attemptY--;
+		break;
+	default:
+		moveAttempted = false;
+	}
+
+	if (moveAttempted) {
+		event.preventDefault();
+		let row = map[attemptY];
+		if (row !== undefined) {
+			let tileCode = row[attemptX];
+			if (tileCode === '0') {
+				moveCharacter(attemptX, attemptY);
+			}
+		}
+	}
+});
+
 document.getElementById('corridor-toggle').addEventListener('input', function (event) {
 	if (tiles[0] === brickCorridor) {
 		tiles[0] = transparentCorridor;
@@ -67,6 +118,7 @@ document.getElementById('corridor-toggle').addEventListener('input', function (e
 		tiles[0] = brickCorridor;
 	}
 	drawMap();
+	drawCharacter();
 });
 
 function chooseMap() {
@@ -93,4 +145,6 @@ function chooseMap() {
 	map.push('0111111101010111111111011101110111');
 	map.push('0000000000010000000000010000000021');
 	map.push('1111111111111111111111111111111111');
+	xLocation = 10;
+	yLocation = 2;
 }
