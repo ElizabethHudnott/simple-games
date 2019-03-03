@@ -106,6 +106,9 @@ document.body.addEventListener('keydown', function (event) {
 			let tileCode = row[attemptX];
 			if (tileCode === '0') {
 				moveCharacter(attemptX, attemptY);
+			} else if (tileCode === '2') {
+				moveCharacter(attemptX, attemptY);
+				document.getElementById('sfx-win').play();
 			}
 		}
 	}
