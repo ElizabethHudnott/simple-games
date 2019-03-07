@@ -4,14 +4,7 @@
 }
 
 .btn-primary {
-	background-color: #b80000;
-	border-color: #b80000;
 	font-family: monospace;
-}
-
-.btn-primary:hover {
-	background-color: #cc0000;
-	border-color: #bc0000;
 }
 
 .btn-primary.btn-lg {

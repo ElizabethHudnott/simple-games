@@ -12,6 +12,16 @@ p {
 	text-align: justify;
 }
 
+.btn-primary {
+	background-color: #b80000;
+	border-color: #b80000;
+}
+
+.btn-primary:hover {
+	background-color: #cc0000;
+	border-color: #bc0000;
+}
+
 .jumbotron {
 	margin-top: 1rem;
 	margin-bottom: 1.3rem;
