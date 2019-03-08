@@ -12,6 +12,10 @@ p {
 	text-align: justify;
 }
 
+.blockquote-footer {
+	font-style: italic;
+}
+
 .btn-primary {
 	background-color: #b80000;
 	border-color: #b80000;
