@@ -38,6 +38,16 @@ let transparentCorridor;
  */
 let map;
 
+/**This object enables us to look up the coded letter used to represent some particular
+ * kind of tile.
+ * @type {Object}
+ */
+const TileCodes = Object.freeze({
+	CORRIDOR: '0',
+	WALL: '1',
+	EXIT: '2',
+});
+
 /**The image of the player's character.
  * @type {Image}
  */
@@ -53,10 +63,20 @@ let xLocation;
  */
 let yLocation;
 
+/**Refers to the drop-down list that can be used to choose which level to play.
+ * @type {HTMLSelectElement}
+ */
+const levelSelector = document.getElementById('level-select');
+
+/**Records which level the player is currently on.
+ * @type {number}
+ */
+let currentLevelNumber = parseInt(levelSelector.value);
+
 /*Fill the map array with data, set the player's starting location, and load a background
  *image (using CSS), which will appear wherever the tiles have transparent pixels.
  */
-chooseMap();
+chooseMap(currentLevelNumber);
 
 /**Records counts how many images have been loaded so far.
  * @type {number}
@@ -186,11 +206,18 @@ document.body.addEventListener('keydown', function (event) {
 		let row = map[attemptY];
 		if (row !== undefined) {
 			let tileCode = row[attemptX];
-			if (tileCode === '0') {
+			if (tileCode === TileCodes.CORRIDOR) {
 				moveCharacter(attemptX, attemptY);
-			} else if (tileCode === '2') {
+			} else if (tileCode === TileCodes.EXIT) {
 				moveCharacter(attemptX, attemptY);
 				document.getElementById('sfx-win').play();
+				setTimeout(function () {
+					currentLevelNumber++;
+					levelSelector.value = currentLevelNumber;
+					chooseMap(currentLevelNumber);
+					drawMap();
+					drawCharacter();
+				}, 1500);
 			}
 		}
 	}
@@ -206,31 +233,51 @@ document.getElementById('corridor-toggle').addEventListener('input', function (e
 	drawCharacter();
 });
 
-function chooseMap() {
+levelSelector.addEventListener('input', function (event) {
+	currentLevelNumber = parseInt(levelSelector.value);
+	chooseMap(currentLevelNumber);
+	drawMap();
+	drawCharacter();
+});
+
+function chooseMap(levelNumber) {
 	map = [];
-	map.push('0000000000010000010000000000000001');
-	map.push('0111111111010111010111111111111101');
-	map.push('0100010001010001000000010000010001');
-	map.push('0101010101110111111111011101010111');
-	map.push('0001000100000100000001000001010001');
-	map.push('0111111111111101111101110111111101');
-	map.push('0001000000000001000101000100000001');
-	map.push('1101011111111111010101110101111111');
-	map.push('0001010000000001010100010100010001');
-	map.push('0111011101111101011111111111011101');
-	map.push('0001000001010001000000000001000101');
-	map.push('1101111101010111110111011101110101');
-	map.push('0100000100010000010001010000000101');
-	map.push('0111110101011111011101011111111101');
-	map.push('0000010101000001000101000001000001');
-	map.push('0111110101111101110101111101110111');
-	map.push('0001000101000001000101000100010001');
-	map.push('1101011111011111011101010111011101');
-	map.push('0001000001010000010001010001010001');
-	map.push('0111111101010111111111011101110111');
-	map.push('0000000000010000000000010000000021');
-	map.push('1111111111111111111111111111111111');
-	canvas.style.backgroundImage = 'url("backgrounds/circuit-board.png")';
-	xLocation = 10;
-	yLocation = 2;
+	switch (levelNumber) {
+	case 1:
+		map.push('0000000000010000010000000000000001');
+		map.push('0111111111010111010111111111111101');
+		map.push('0100010001010001000000010000010001');
+		map.push('0101010101110111111111011101010111');
+		map.push('0001000100000100000001000001010001');
+		map.push('0111111111111101111101110111111101');
+		map.push('0001000000000001000101000100000001');
+		map.push('1101011111111111010101110101111111');
+		map.push('0001010000000001010100010100010001');
+		map.push('0111011101111101011111111111011101');
+		map.push('0001000001010001000000000001000101');
+		map.push('1101111101010111110111011101110101');
+		map.push('0100000100010000010001010000000101');
+		map.push('0111110101011111011101011111111101');
+		map.push('0000010101000001000101000001000001');
+		map.push('0111110101111101110101111101110111');
+		map.push('0001000101000001000101000100010001');
+		map.push('1101011111011111011101010111011101');
+		map.push('0001000001010000010001010001010001');
+		map.push('0111111101010111111111011101110111');
+		map.push('0000000000010000000000010000000021');
+		map.push('1111111111111111111111111111111111');
+		canvas.style.backgroundImage = 'url("backgrounds/circuit-board.png")';
+		xLocation = 10;
+		yLocation = 2;
+		break;
+	case 2:
+		map.push('0000000100000100000000000000010001');
+		map.push('0111110101010101111111110111011101');
+		map.push('0001000101010101000100000101000101');
+		map.push('1101111101011101110101111101110101');
+		map.push('0001000001000100010100010001000101');
+		xLocation = 0;
+		yLocation = 0;
+		break;
+	}
 }
