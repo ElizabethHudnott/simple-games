@@ -2,10 +2,23 @@ a {
 	color: #f80000;
 }
 
+h1 a, h2 a {
+	color: #212529;
+}
+
 a:hover {
 	background-color: #b80000;
 	color: white;
 	text-decoration: none;
+}
+
+h1 a:hover, h2 a:hover {
+	background-color: unset;
+	color: #212529;
+}
+
+iframe {
+	border: none;
 }
 
 p {
