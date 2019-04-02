@@ -86,5 +86,5 @@
 	}
 
 	window.GameKit.audioContext = audioContext;
-	window.GameKit.SFX = new SoundEffects();
+	window.GameKit.SoundEffects = SoundEffects;
 }

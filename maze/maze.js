@@ -39,7 +39,8 @@ let transparentCorridor;
 let map;
 
 /**This object enables us to look up the coded letter used to represent some particular
- * kind of tile.
+ * kind of tile. This makes if statements a bit more readable compared to if we wrote the
+ * codes directly.
  * @type {Object}
  */
 const TileCodes = Object.freeze({
@@ -153,11 +154,14 @@ function drawTile(x, y) {
 	//The tile images are each 32 pixels wide and 32 pixels high.
 	let xPosition = 32 * x;
 	let yPosition = 32 * y;
-	//
+	//Our tile might have transparent pixels, so erase the tile previously drawn there first.
 	gContext.clearRect(xPosition, yPosition, 32, 32);
+	//Draw our tile.
 	gContext.drawImage(tile, xPosition, yPosition);
 }
 
+/**Draws a whole map.
+ */
 function drawMap() {
 	gContext.clearRect(0, 0, canvas.width, canvas.height);
 	for (let j = 0; j < map.length; j++) {
@@ -173,16 +177,26 @@ function drawMap() {
 	}
 }
 
+/**Moves our game's character to a new position.
+ * @param {number} x The column number to move the game character to.
+ * @param {number} y The row number to move the game character to.
+ */
 function moveCharacter(x, y) {
+	//Redraw the tile at the location where the character previously was, to erase the character.
 	drawTile(xLocation, yLocation);
+	//Update our record of our character's position.
 	xLocation = x;
 	yLocation = y;
+	//Draw the character at the new location.
 	drawCharacter();
 }
 
+//React when a key is pressed down.
 document.body.addEventListener('keydown', function (event) {
+	//Keep track of the column and the row the player is trying to move their character to.
 	let attemptX = xLocation;
 	let attemptY = yLocation;
+	//Track whether the user has pressed a valid key or not.
 	let moveAttempted = true;
 	switch (event.key) {
 	case 'ArrowDown':
@@ -202,20 +216,44 @@ document.body.addEventListener('keydown', function (event) {
 	}
 
 	if (moveAttempted) {
+		/*Prevent the browser from doing whatever default action it would normally do in
+		 *response to pressing this key. The arrow keys would normally scroll the document
+		 *and we don't want that to happen!
+		 */
 		event.preventDefault();
+		/*Access the map data for the row which the player attempted to move their
+		 *character to. If row is undefined then it means attemptY is less than 0 or
+		 *bigger than the maximum array index.
+		 */
 		let row = map[attemptY];
 		if (row !== undefined) {
+			/*Find out the type of tile the player is attempting to move onto by
+			 *inspecting a single character of the map data for the row.
+			 */
 			let tileCode = row[attemptX];
 			if (tileCode === TileCodes.CORRIDOR) {
+				/*They attempted to move to another corridor space, which is an allowable
+				 *move, so let's move their character there.
+				*/
 				moveCharacter(attemptX, attemptY);
 			} else if (tileCode === TileCodes.EXIT) {
+				/*They attempted to move to the space where the maze's exit is located,
+				 *so move their character there and celebrate winning the level.
+				*/
 				moveCharacter(attemptX, attemptY);
 				document.getElementById('sfx-win').play();
+				//After a short delay, move onto the next level.
 				setTimeout(function () {
 					currentLevelNumber++;
+					/*Update the drop-down list to display the new level number as the
+					 *chosen choice of level to play.
+					*/
 					levelSelector.value = currentLevelNumber;
+					//Put new data into the map variable.
 					chooseMap(currentLevelNumber);
+					//Draw a map using the new data.
 					drawMap();
+					//Draw the player's character.
 					drawCharacter();
 				}, 1500);
 			}
@@ -223,23 +261,34 @@ document.body.addEventListener('keydown', function (event) {
 	}
 });
 
+/*React when the user ticks or unticks a box to select which graphic they want to see
+ *displayed to represent corridors.
+*/
 document.getElementById('corridor-toggle').addEventListener('input', function (event) {
+	//Whichever image is stored in tiles[0] will be used to draw corridors.
 	if (tiles[0] === brickCorridor) {
 		tiles[0] = transparentCorridor;
 	} else {
 		tiles[0] = brickCorridor;
 	}
+	//Redraw the game.
 	drawMap();
 	drawCharacter();
 });
 
+//React to the user using a drop-down list to choose a different level to play.
 levelSelector.addEventListener('input', function (event) {
+	//The value of the item currently selected from the drop-down list is a string.
 	currentLevelNumber = parseInt(levelSelector.value);
 	chooseMap(currentLevelNumber);
 	drawMap();
 	drawCharacter();
 });
 
+/**Alters the contents of the game's map, sets the player's location to a fixed starting
+ * location for the new level and alters the background image drawn underneath the game's
+ * tiles (using CSS).
+ */
 function chooseMap(levelNumber) {
 	map = [];
 	switch (levelNumber) {
